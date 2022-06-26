@@ -15,8 +15,8 @@ wss.on('connection', function connection(ws) {
       const commandResult = await handleCommand(command, argsNums);
       if (commandResult) {
         if (command === 'prnt_scrn') {
-          wsStream.write(`${command} ${commandResult.slice(commandResult.indexOf(',') + 1)}\0`);
-          console.log(`-\x1b[31m>\x1b[0m ${command} {base64 string (png buf)}`);
+          wsStream.write(`${command} ${commandResult}\0`);
+          console.log(`-\x1b[31m>\x1b[0m ${command} {imageBase64PngBuffer: ${commandResult.slice(0, 30)}...}`);
         } else if (command === 'mouse_position') {
           wsStream.write(`${command} ${commandResult}\0`);
           console.log(`-\x1b[31m>\x1b[0m ${command} ${commandResult}`);
