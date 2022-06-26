@@ -13,18 +13,21 @@ wss.on('connection', function connection(ws) {
     try {
       const { command, argsNums } = await parseCommand(data);
       const commandResult = await handleCommand(command, argsNums);
-      let buf1 = Buffer;
+      let buffer: Buffer = Buffer.alloc(10, 1);
       if (commandResult) {
         if (command === 'prnt_scrn') {
-          wsStream.write(`${command} ${commandResult}\0`);
+          buffer = Buffer.from(`${command} ${commandResult}\0`);
           console.log(`-\x1b[31m>\x1b[0m ${command} {imageBase64PngBuffer: ${commandResult.slice(0, 30)}...}`);
         } else if (command === 'mouse_position') {
-          wsStream.write(`${command} ${commandResult}\0`);
+          buffer = Buffer.from(`${command} ${commandResult}\0`);
           console.log(`-\x1b[31m>\x1b[0m ${command} ${commandResult}`);
         }
       } else {
-        wsStream.write(`${command}\0`);
+        buffer = Buffer.from(`${command}\0`);
         console.log('success');
+      }
+      if (buffer[buffer.length - 1] === 0) {
+        wsStream.write(buffer.toString());
       }
     } catch (error) {
       console.log('error');
