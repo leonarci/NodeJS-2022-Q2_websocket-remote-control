@@ -1,7 +1,7 @@
 import robot, { screen } from 'robotjs';
 import Jimp from 'jimp';
 
-export async function handleCommand(command: any, args: number[]) {
+export async function handleCommand(command: string, args: number[]) {
   let { x, y } = robot.getMousePos();
   let result: string;
   switch (command) {
@@ -43,9 +43,9 @@ export async function handleCommand(command: any, args: number[]) {
 }
 
 
-function drawCirle(radius: any, circleCenter: any) {
-  let findYPlus = (cx: number, circleCenter: any): number => Math.round(circleCenter.b - Math.sqrt(radius ** 2 - (cx - circleCenter.a) ** 2));
-  let findYMinus = (cx: number, circleCenter: any): number => Math.round(circleCenter.b + Math.sqrt(radius ** 2 - (cx - circleCenter.a) ** 2));
+function drawCirle(radius: number, circleCenter: { a: number, b: number; }) {
+  let findYPlus = (cx: number, circleCenter: { a: number, b: number; }): number => Math.round(circleCenter.b - Math.sqrt(radius ** 2 - (cx - circleCenter.a) ** 2));
+  let findYMinus = (cx: number, circleCenter: { a: number, b: number; }): number => Math.round(circleCenter.b + Math.sqrt(radius ** 2 - (cx - circleCenter.a) ** 2));
   robot.mouseClick();
   robot.mouseToggle('down', 'left');
   let cx = circleCenter.a - radius;
