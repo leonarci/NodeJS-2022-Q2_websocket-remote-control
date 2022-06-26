@@ -4,7 +4,7 @@
     "description": "Assignment: Websoket Remote Control for NodeJS 2022 Q2 course at RS School",
     "main": "index.js",
     "scripts": {
-        "start": "tsc && node ./dist/index.js",
+        "start": "webpack && node ./dist/index.js",
         "start:dev": "nodemon ./index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -15,8 +15,11 @@
         "@types/node": "^18.0.0",
         "@types/ws": "^8.5.3",
         "nodemon": "^2.0.16",
+        "ts-loader": "^9.3.1",
         "ts-node": "^10.8.1",
-        "typescript": "^4.7.4"
+        "typescript": "^4.7.4",
+        "webpack": "^5.73.0",
+        "webpack-cli": "^4.10.0"
     },
     "dependencies": {
         "jimp": "^0.16.1",
